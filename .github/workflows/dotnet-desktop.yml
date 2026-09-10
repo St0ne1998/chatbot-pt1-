@@ -1,3 +1,4 @@
+ url=https://github.com/St0ne1998/chatbot-pt1-/blob/main/.github/workflows/dotnet-desktop.yml
 # This workflow uses actions that are not certified by GitHub.
 # They are provided by a third-party and are governed by
 # separate terms of service, privacy policy, and support
@@ -50,14 +51,15 @@ jobs:
       matrix:
         configuration: [Debug, Release]
 
-    runs-on: windows-latest  # For a list of available runner types, refer to
-                             # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
-   env:
-  Solution_Name: MyChatbot.sln
-  Test_Project_Path: MyChatbot.Tests/MyChatbot.Tests.csproj
-  Wap_Project_Directory: MyChatbot.Package
-  Wap_Project_Path: MyChatbot.Package/MyChatbot.Package.wapproj
-  steps:
+    runs-on: windows-latest
+
+    env:
+      Solution_Name: your-solution-name
+      Test_Project_Path: your-test-project-path
+      Wap_Project_Directory: your-wap-project-directory-name
+      Wap_Project_Path: your-wap-project-path
+
+    steps:
     - name: Checkout
       uses: actions/checkout@v4
       with:
@@ -92,7 +94,7 @@ jobs:
 
     # Create the app package by building and packaging the Windows Application Packaging project
     - name: Create the app package
-      run: msbuild $env:Wap_Project_Path /p:Configuration=$env:Configuration /p:UapAppxPackageBuildMode=$env:Appx_Package_Build_Mode /p:AppxBundle=$env:Appx_Bundle /p:PackageCertificateKeyFile=GitHubActionsWorkflow.pfx /p:PackageCertificatePassword=${{ secrets.Pfx_Key }}
+      run: msbuild $env:Wap_Project_Path /p:Configuration=$env:Configuration /p:UapAppxPackageBuildMode=$env:Appx_Package_Build_Mode /p:AppxBundle=$env:Appx_Bundle /p:PackageCertificateKeyFile=GitHubActionsWorkflow.pfx
       env:
         Appx_Bundle: Always
         Appx_Bundle_Platforms: x86|x64
